@@ -27,7 +27,7 @@ export const FeedbackProvider = ({ children }) => {
     setFeedback([newFeedback, ...feedback])
   }
 
-  //Edit Feedback
+  //Set item to be updated
   const editFeedback = (item) => {
     setFeedbackEdit({
       item,
@@ -35,14 +35,22 @@ export const FeedbackProvider = ({ children }) => {
     })
   }
 
+  //Update Feedback
+  const updateFeedback = (id, updItem) => {
+    setFeedback(
+      feedback.map((item) => (item.id === id ? { ...item, ...updItem } : item))
+    )
+  }
+
   return (
     <FeedbackContext.Provider
       value={{ //pass to the value in order to pass through the global state
         feedback,
+        feedbackEdit,
         deleteFeedback,
         addFeedback,
         editFeedback,
-        feedbackEdit
+        updateFeedback
       }}
     >
       {children}
