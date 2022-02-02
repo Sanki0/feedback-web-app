@@ -1,16 +1,28 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import FeedbackData from '../data/FeedbackData';
 
 const FeedbackContext = React.createContext()
 
 export const FeedbackProvider = ({ children }) => {
-  const [feedback, setFeedback] = React.useState(FeedbackData)
+  const [isLoading, setIsLoading] = React.useState(true)
+  const [feedback, setFeedback] = React.useState([])
 
   const [feedbackEdit, setFeedbackEdit] = React.useState({
     item: {},
     edit: false
   })
+
+  React.useEffect(() => {
+    fetchFeedback()
+  }, [])
+
+  //Fetch Feedback from db.json 
+  const fetchFeedback = async () => {
+    const response = await fetch(`http://localhost:5000/feedback?_sort=id&_order=desc`)
+    const data = await response.json()
+    setFeedback(data)
+    setIsLoading(false)
+  }
 
   //Delete Feedback
   const deleteFeedback = (id) => {
@@ -45,6 +57,7 @@ export const FeedbackProvider = ({ children }) => {
   return (
     <FeedbackContext.Provider
       value={{ //pass to the value in order to pass through the global state
+        isLoading,
         feedback,
         feedbackEdit,
         deleteFeedback,
