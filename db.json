@@ -16,9 +16,14 @@
       "text": "This is feedback item 3 coming from the backend"
     },
     {
-      "rating": "8",
-      "text": "from postman",
-      "id": 4
+      "rating": 10,
+      "text": "sssssssssssss",
+      "id": 5
+    },
+    {
+      "rating": 5,
+      "text": "aaaaaaaaaaaaaaaaa",
+      "id": 6
     }
   ]
 }

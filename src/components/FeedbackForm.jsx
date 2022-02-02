@@ -41,8 +41,8 @@ function FeedbackForm() {
     e.preventDefault()
     if (text.trim().length > 10) {
       const newFeedBack = {
-        text,
         rating,
+        text,
       }
       if (feedbackEdit.edit === false) {
         addFeedback(newFeedBack)
