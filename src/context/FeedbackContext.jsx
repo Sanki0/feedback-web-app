@@ -7,6 +7,12 @@ const FeedbackContext = React.createContext()
 export const FeedbackProvider = ({ children }) => {
   const [feedback, setFeedback] = React.useState(FeedbackData)
 
+  const [feedbackEdit, setFeedbackEdit] = React.useState({
+    item: {},
+    edit: false
+  })
+
+  //Delete Feedback
   const deleteFeedback = (id) => {
     if (window.confirm('Are you sure?')) {
       setFeedback(feedback.filter((item) => (
@@ -14,9 +20,19 @@ export const FeedbackProvider = ({ children }) => {
       )))
     }
   }
+
+  //Add Feedback
   const addFeedback = (newFeedback) => {
     newFeedback.id = uuidv4()
     setFeedback([newFeedback, ...feedback])
+  }
+
+  //Edit Feedback
+  const editFeedback = (item) => {
+    setFeedbackEdit({
+      item,
+      edit: true
+    })
   }
 
   return (
@@ -24,7 +40,9 @@ export const FeedbackProvider = ({ children }) => {
       value={{ //pass to the value in order to pass through the global state
         feedback,
         deleteFeedback,
-        addFeedback
+        addFeedback,
+        editFeedback,
+        feedbackEdit
       }}
     >
       {children}

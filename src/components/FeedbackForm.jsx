@@ -5,15 +5,25 @@ import Button from './shared/Button';
 import Card from './shared/Card';
 
 function FeedbackForm() {
-  const { addFeedback } = React.useContext(FeedbackContext)
-  
+
   const [text, setText] = React.useState('');
   const [rating, setRating] = React.useState(10)
   const [btnDisabled, setBtnDisabled] = React.useState(true)
   const [message, setMessage] = React.useState('')
 
+  const { addFeedback, feedbackEdit } = React.useContext(FeedbackContext)
+
+  React.useEffect(() => {
+    if (feedbackEdit.edit === true) {
+      setBtnDisabled(false)
+      setText(feedbackEdit.item.text)
+      setRating(feedbackEdit.item.rating)
+    }
+  }, [feedbackEdit])
+
+
   const handleTextChange = (e) => {
-    if (text.trim().length === 0) {
+    if (text === '') {
       setBtnDisabled(true)
       setMessage(null)
     } else if (text !== '' && text.trim().length <= 10) {
