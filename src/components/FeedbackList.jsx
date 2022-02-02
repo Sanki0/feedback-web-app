@@ -22,7 +22,7 @@ function FeedbackList({ feedback, handleDelete }) {
 FeedbackList.propTypes = {
   feedback: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      // id: PropTypes.number.isRequired,  //uuid gives string so best to eliminate the proptype
       text: PropTypes.string.isRequired,
       rating: PropTypes.number.isRequired,
     })

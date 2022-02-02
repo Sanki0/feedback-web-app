@@ -3,8 +3,9 @@ import RatingSelect from './RatingSelect';
 import Button from './shared/Button';
 import Card from './shared/Card';
 
-function FeedbackForm() {
+function FeedbackForm({handleAdd}) {
   const [text, setText] = React.useState('');
+  const [rating, setRating] = React.useState(10)
   const [btnDisabled, setBtnDisabled] = React.useState(true)
   const [message, setMessage] = React.useState('')
 
@@ -23,11 +24,25 @@ function FeedbackForm() {
     setText(e.target.value)
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (text.trim().length > 10) {
+      const newFeedBack = {
+        text,
+        rating,
+      }
+      console.log(newFeedBack)
+      handleAdd(newFeedBack)
+
+      setText('')
+    }
+  }
+
   return (
     <Card>
-      <form action="">
+      <form onSubmit={handleSubmit}>
         <h2>Rate our service</h2>
-        <RatingSelect select={(rating) => { console.log(rating) }}></RatingSelect>
+        <RatingSelect select={(rating) => { setRating(rating) }}></RatingSelect>
         <div className="input-group">
           <input onChange={handleTextChange} type="text" placeholder='write a review' value={text} />
           <Button type="submit" isDisabled={btnDisabled}>Send</Button>
